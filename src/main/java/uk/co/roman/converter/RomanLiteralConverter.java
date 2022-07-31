@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toMap;
 
@@ -12,12 +14,27 @@ public class RomanLiteralConverter {
     private static final Map<Integer, String> ROMAN_PATTERN;
     private static final List<String> ROMAN_NUMERALS;
     private static final Map<String, Integer> INTEGER_ROMAN_PATTERN;
+    private static final Function<Integer, Integer> MOD_KEY = index -> IntStream.range(1, String.valueOf(index).length())
+            .map(i -> 10 * 1).reduce(1, (v1, v2) -> v1 * v2);
 
     public String toRomanNumber(int number){
+        //find num length
+        return buildRomanNumber(number, MOD_KEY.apply(number));
+    }
+
+    private String buildRomanNumber(int number, int modKey){
         String result = "";
         if (ROMAN_PATTERN.containsKey(number)) {
             return ROMAN_PATTERN.get(number);
         }
+
+        //find the modulus using the modkey, e.g 101/100 = 1
+        final int modulus = number % modKey;
+        //get the units, tens, hundreds etc, 101 - modulus = 100
+        final int digits = number - modulus;
+        //find the matching or nearest possible value
+        //subtract remaining value and count number of items to append
+
         return result;
     }
 
