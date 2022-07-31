@@ -1,6 +1,7 @@
 package uk.co.roman.converter;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -13,6 +14,7 @@ public class RomanLiteralConverter {
     private static final Map<String, Integer> INTEGER_ROMAN_PATTERN;
     private static final Function<Integer, Integer> MOD_KEY = index -> IntStream.range(1, String.valueOf(index).length())
             .map(i -> 10 * 1).reduce(1, (v1, v2) -> v1 * v2);
+    private static final BiFunction<Integer, Integer, String> APPENDER;
 
     public String toRomanNumber(int number){
         //find num length
@@ -34,10 +36,7 @@ public class RomanLiteralConverter {
         //subtract remaining value and count number of items to append
         final int appendCount = (digits - lastLowestRomanKey.get()) / modKey;
 
-        final var appender = IntStream.rangeClosed(1, appendCount)
-                .mapToObj(index -> ROMAN_PATTERN.get(modKey))
-                .reduce("", (v1, v2) -> v1 + v2);
-
+        result =  ROMAN_PATTERN.get(lastLowestRomanKey.get()) + APPENDER.apply(appendCount, modKey);
         return result;
     }
 
@@ -66,6 +65,9 @@ public class RomanLiteralConverter {
         ROMAN_PATTERN.put(5000, "V̅");
         ROMAN_NUMERALS = Arrays.asList("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X");
         INTEGER_ROMAN_PATTERN = ROMAN_PATTERN.entrySet().stream().collect(toMap(Map.Entry::getValue, Map.Entry::getKey));
+        APPENDER = (appendCount, modKey) -> IntStream.rangeClosed(1, appendCount)
+                .mapToObj(index -> ROMAN_PATTERN.get(modKey))
+                .reduce("", (v1, v2) -> v1 + v2);
     }
 
 }
