@@ -18,7 +18,7 @@ public class RomanLiteralConverter {
 
     public String toRomanNumber(int number) {
         //find num length
-        return buildRomanNumber(number, MOD_KEY.apply(number));
+        return number > 0 && number <= 5000 ? buildRomanNumber(number, MOD_KEY.apply(number)) : "InvalidNumber or beyond range";
     }
 
     private String buildRomanNumber(int number, int modKey) {

@@ -22,7 +22,7 @@ public class RomanLiteralConverterTest {
     }
 
     @ParameterizedTest(name = "#{index} - Run test with args={0}")
-    @CsvSource({"-1, InvalidNumber", "0, InvalidNumber"})
+    @CsvSource({"-1, InvalidNumber or beyond range", "0, InvalidNumber or beyond range", "5001, InvalidNumber or beyond range"})
     void testToRomanNumberForInvalidNumber(int value, String romanNumber){
         final var result = romanLiteralConverter.toRomanNumber(value);
         assertEquals(romanNumber, result);
