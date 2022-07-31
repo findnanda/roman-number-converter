@@ -1,9 +1,6 @@
 package uk.co.roman.converter;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -27,13 +24,19 @@ public class RomanLiteralConverter {
         if (ROMAN_PATTERN.containsKey(number)) {
             return ROMAN_PATTERN.get(number);
         }
-
         //find the modulus using the modkey, e.g 101/100 = 1
         final int modulus = number % modKey;
         //get the units, tens, hundreds etc, 101 - modulus = 100
         final int digits = number - modulus;
         //find the matching or nearest possible value
+        final var lastLowestRomanKey = ROMAN_PATTERN.keySet().stream()
+                .filter(key -> key <= digits).max(Comparator.comparingInt(k -> k));
         //subtract remaining value and count number of items to append
+        final int appendCount = (digits - lastLowestRomanKey.get()) / modKey;
+
+        final var appender = IntStream.rangeClosed(1, appendCount)
+                .mapToObj(index -> ROMAN_PATTERN.get(modKey))
+                .reduce("", (v1, v2) -> v1 + v2);
 
         return result;
     }
