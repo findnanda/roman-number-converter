@@ -16,7 +16,7 @@ public class RomanLiteralConverterTest {
        romanLiteralConverter = new RomanLiteralConverter();
    }
     @ParameterizedTest(name = "#{index} - Run test with args={0}")
-    @CsvSource({"20, XX", "50, L", "45, XLIV", "100, C", "150, CL"})
+    @CsvSource({"20, XX", "50, L", "45, XLV", "100, C", "150, CL"})
     void testToRomanNumber(int value, String romanNumber){
         final var result = romanLiteralConverter.toRomanNumber(value);
         assertEquals(romanNumber, result);

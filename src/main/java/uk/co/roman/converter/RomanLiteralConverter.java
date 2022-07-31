@@ -16,12 +16,12 @@ public class RomanLiteralConverter {
             .map(i -> 10 * 1).reduce(1, (v1, v2) -> v1 * v2);
     private static final BiFunction<Integer, Integer, String> APPENDER;
 
-    public String toRomanNumber(int number){
+    public String toRomanNumber(int number) {
         //find num length
         return buildRomanNumber(number, MOD_KEY.apply(number));
     }
 
-    private String buildRomanNumber(int number, int modKey){
+    private String buildRomanNumber(int number, int modKey) {
         String result = "";
         if (ROMAN_PATTERN.containsKey(number)) {
             return ROMAN_PATTERN.get(number);
@@ -36,8 +36,14 @@ public class RomanLiteralConverter {
         //subtract remaining value and count number of items to append
         final int appendCount = (digits - lastLowestRomanKey.get()) / modKey;
 
-        result =  ROMAN_PATTERN.get(lastLowestRomanKey.get()) + APPENDER.apply(appendCount, modKey);
-        return result;
+        if (String.valueOf(modulus).length() > 1) {
+            result = buildRomanNumber(modulus, MOD_KEY.apply(modulus));
+        } else {
+            if (String.valueOf(modulus).length() == 1) {
+                result = getSingleDigitRomanNumber(modulus);
+            }
+        }
+        return ROMAN_PATTERN.get(lastLowestRomanKey.get()) + APPENDER.apply(appendCount, modKey) + result;
     }
 
     private String getSingleDigitRomanNumber(int index) {
