@@ -14,8 +14,8 @@ public class RomanLiteralConverterTest {
        romanLiteralConverter = new RomanLiteralConverter();
    }
     @Test
-    void testRomanNumber(){
-        final var result = romanLiteralConverter.romanNumber(20);
+    void testToRomanNumber(){
+        final var result = romanLiteralConverter.toRomanNumber(20);
         assertEquals("XX", result);
     }
 }

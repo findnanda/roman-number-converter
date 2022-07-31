@@ -13,9 +13,12 @@ public class RomanLiteralConverter {
     private static final List<String> ROMAN_NUMERALS;
     private static final Map<String, Integer> INTEGER_ROMAN_PATTERN;
 
-    public String romanNumber(int number){
-
-        return "";
+    public String toRomanNumber(int number){
+        String result = "";
+        if (ROMAN_PATTERN.containsKey(number)) {
+            return ROMAN_PATTERN.get(number);
+        }
+        return result;
     }
 
     private String getSingleDigitRomanNumber(int index) {
