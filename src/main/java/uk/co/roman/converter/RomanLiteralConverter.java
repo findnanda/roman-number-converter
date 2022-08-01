@@ -26,13 +26,12 @@ public class RomanLiteralConverter {
         int index = 0;
         //find the length here and identify each character
         while(index < romanNumber.length()){
-            //find a direct mapping
-            Integer val = INTEGER_ROMAN_PATTERN.get(String.valueOf(romanNumber.charAt(index)));
+            //find a two digits first
+            Integer val = INTEGER_ROMAN_PATTERN.get(romanNumber.substring(index, Math.min(index + 2, romanNumber.length())));
             if(val == null){
                 retVal =  retVal + INTEGER_ROMAN_PATTERN.get(String.valueOf(romanNumber.charAt(index)));
                 index++;
             } else {
-                val = INTEGER_ROMAN_PATTERN.get(romanNumber.substring(index, index+2 < romanNumber.length() ? index +2: romanNumber.length()));
                 retVal = retVal + val;
                 index = index + 2;
             }
