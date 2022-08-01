@@ -20,16 +20,16 @@ public class RomanLiteralConverter {
         //find the length here and identify each character
         while (index < romanNumber.length()) {
             //find a two digits first
-            int val = RomanDictionary.lookUpDictionary(romanNumber.substring(index, Math.min(index + 2, romanNumber.length())));
-            if (val == -1) {
-                val = RomanDictionary.lookUpDictionary(romanNumber.charAt(index));
-                if(val == -1){
+            int currentValue = RomanDictionary.lookUpDictionary(romanNumber.substring(index, Math.min(index + 2, romanNumber.length())));
+            if (currentValue == -1) {
+                currentValue = RomanDictionary.lookUpDictionary(romanNumber.charAt(index));
+                if(currentValue == -1){
                     return -1;
                 }
-                retVal = retVal + val;
+                retVal = retVal + currentValue;
                 index++;
             } else {
-                retVal = retVal + val;
+                retVal = retVal + currentValue;
                 index = index + 2;
             }
         }
