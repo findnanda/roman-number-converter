@@ -21,6 +21,10 @@ public class RomanLiteralConverter {
         return number > 0 && number <= 5000 ? buildRomanNumber(number, MOD_KEY.apply(number)) : "InvalidNumber or beyond range";
     }
 
+    public Integer toInteger(String romanNumber){
+    return 0;
+    }
+
     private String buildRomanNumber(int number, int modKey) {
         String result = "";
         if (ROMAN_PATTERN.containsKey(number)) {
@@ -47,7 +51,6 @@ public class RomanLiteralConverter {
     }
 
     private String getSingleDigitRomanNumber(int index) {
-
         return index == 0 ? "" : ROMAN_NUMERALS.get(index - 1);
     }
 

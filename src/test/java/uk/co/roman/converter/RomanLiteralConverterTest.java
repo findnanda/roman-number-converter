@@ -1,6 +1,7 @@
 package uk.co.roman.converter;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -28,4 +29,9 @@ public class RomanLiteralConverterTest {
         assertEquals(romanNumber, result);
     }
 
+    @Test
+    void testToInteger(){
+        final var result = romanLiteralConverter.toInteger("XI");
+        assertEquals(11, result);
+    }
 }
