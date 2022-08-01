@@ -30,6 +30,11 @@ public class RomanLiteralConverter {
             Integer val = INTEGER_ROMAN_PATTERN.get(String.valueOf(romanNumber.charAt(index)));
             if(val == null){
                 retVal =  retVal + INTEGER_ROMAN_PATTERN.get(String.valueOf(romanNumber.charAt(index)));
+                index++;
+            } else {
+                val = INTEGER_ROMAN_PATTERN.get(romanNumber.substring(index, index+2 < romanNumber.length() ? index +2: romanNumber.length()));
+                retVal = retVal + val;
+                index = index + 2;
             }
         }
     return retVal;
