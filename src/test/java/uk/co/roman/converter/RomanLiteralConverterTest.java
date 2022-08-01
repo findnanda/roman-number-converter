@@ -29,9 +29,17 @@ public class RomanLiteralConverterTest {
         assertEquals(romanNumber, result);
     }
 
-    @Test
-    void testToInteger(){
-        final var result = romanLiteralConverter.toInteger("XI");
-        assertEquals(11, result);
+    @ParameterizedTest(name = "#{index} - Run test with args={0}")
+    @CsvSource({"XX, 20", "L, 50", "XLV, 45", "CL, 150"})
+    void testToInteger(String romanNumber, int value){
+        final var result = romanLiteralConverter.toInteger(romanNumber);
+        assertEquals(value, result);
+    }
+
+    @ParameterizedTest(name = "#{index} - Run test with args={0}")
+    @CsvSource({"ABC, -1", ", -1"})
+    void testToIntegerForInvalidNumber(String romanNumber, int value){
+        final var result = romanLiteralConverter.toInteger(romanNumber);
+        assertEquals(value, result);
     }
 }

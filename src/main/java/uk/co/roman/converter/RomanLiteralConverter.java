@@ -11,22 +11,29 @@ public class RomanLiteralConverter {
         return number > 0 && number <= 5000 ? buildRomanNumber(number, MOD_KEY.apply(number)) : "InvalidNumber or beyond range";
     }
 
-    public Integer toInteger(String romanNumber){
+    public Integer toInteger(String romanNumber) {
+        if (romanNumber == null) {
+            return -1;
+        }
         int retVal = 0;
         int index = 0;
         //find the length here and identify each character
-        while(index < romanNumber.length()){
+        while (index < romanNumber.length()) {
             //find a two digits first
             int val = RomanDictionary.lookUpDictionary(romanNumber.substring(index, Math.min(index + 2, romanNumber.length())));
-            if(val == -1){
-                retVal =  retVal + RomanDictionary.lookUpDictionary(romanNumber.charAt(index));
+            if (val == -1) {
+                val = RomanDictionary.lookUpDictionary(romanNumber.charAt(index));
+                if(val == -1){
+                    return -1;
+                }
+                retVal = retVal + val;
                 index++;
             } else {
                 retVal = retVal + val;
                 index = index + 2;
             }
         }
-    return retVal;
+        return retVal;
     }
 
     private String buildRomanNumber(int number, int modKey) {
