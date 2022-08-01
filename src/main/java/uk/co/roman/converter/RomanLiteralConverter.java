@@ -22,7 +22,17 @@ public class RomanLiteralConverter {
     }
 
     public Integer toInteger(String romanNumber){
-    return 0;
+        int retVal = 0;
+        int index = 0;
+        //find the length here and identify each character
+        while(index < romanNumber.length()){
+            //find a direct mapping
+            Integer val = INTEGER_ROMAN_PATTERN.get(String.valueOf(romanNumber.charAt(index)));
+            if(val == null){
+                retVal =  retVal + INTEGER_ROMAN_PATTERN.get(String.valueOf(romanNumber.charAt(index)));
+            }
+        }
+    return retVal;
     }
 
     private String buildRomanNumber(int number, int modKey) {
